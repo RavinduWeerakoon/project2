@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'community.css' %}">
+{% block content %}
+
+<nav class="navbar navbar-expand navbar-light bg-white topbar mb-4 static-top shadow">
+    <div class="container">
+      <button class="navbar-brand btn shadow-none" id="dashboard-btn">Dashboard</button>
+      <ul class="navbar-nav ms-auto">
+      <li class="nav-item ">
+        <button class="btn nav-link shadow-none" id='video-add-btn'><!-- <span class="me-2"></span> --><i class="fas fa-plus"></i></button>
+      </li>
+        <li class="nav-item">
+            <button class="btn nav-link shadow-none" id="notification-btn"><i class="fas fa-bell"></i></button>
+        </li>
+
+
+
+
+        <div class="topbar-divider d-none d-sm-block"></div>
+
+        <li class="nav-item">
+        <button class=" nav-link btn shadow-none" id='profile-btn'><i class="fas fa-user me-2"></i>@{{ request.user.username }}</button>
+        </li>
+ 
+
+
+
+      </ul>
+    </div> 
+
+
+</nav>
+
+<div class="container-fluid">
+<div class="row">
+<div class="col-md-8 mx-auto">
+
+    <div class="text-center mt-4">
+    <div class="spinner-border text-primary" id="loading" role="status">
+        <span class="d-none">Loading...</span>
+
+    </div>
+
+    </div>
+    <div id="content">
+        {% include 'video_view.html' %}
+    </div>
+
+
+
+
+
+    
+
+    <script>
+    	$(document).ready(
+    		function(){
+
+            var content = $('#content')
+    		
+            $('#video-add-btn').click( ()=> content.load("{% url 'community:add-video' %}") );
+            $('#profile-btn').click( ()=>content.load("{% url 'community:profile-view' %}") );
+            $('#dashboard-btn').click( ()=>content.load("{% url 'community:dashboard' %}") );
+            $('#notification-btn').click( ()=>content.load("{% url 'community:notifications' %}") );
+                
+
+    		});
+        
+
+            var $loading = $('#loading').hide();
+            $(document)
+              .ajaxStart(function () {
+                $loading.show();
+              })
+              .ajaxStop(function () {
+                $loading.hide();
+              });
+
+
+
+
+  
+    </script>
+    </div>
+</div>
+</div>
+
+{% endblock %}

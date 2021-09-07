@@ -1,0 +1,44 @@
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3 d-flex justify-content-between">
+        <h6 class="m-0 font-weight-bold text-primary">Profile</h6>
+        <div class="nav-buttons d-flex">
+        	
+        	<a class="btn btn-danger" href="{% url 'logout' %}">Logout</a>
+        </div>
+
+    </div>
+    <div class="card-body">
+    	<h3 class="mb-3">{{user.username}}</h3>
+
+        <div class="details">
+            <div class="row">
+                <div class="col-sm-3"><h6>YouTube</h6></div>
+                <div class="col-sm-9"><p>{{tube_user.tube_url}}</p></div>
+                <div class="col-sm-3"><h6>Added Videos</h6></div>
+                <div class="col-sm-9">
+                    <ul>
+                        {% for video in videos %}
+                        <li><a href="{{video.url}}">{{video.url}}</a></li>
+                        {% endfor %}
+
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        
+
+    </div>
+    <style>
+        @media screen and ( max-width:578px ){
+            .col-sm-3 {
+                padding-bottom: 0;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</div>
+
+
+

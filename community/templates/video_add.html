@@ -1,0 +1,50 @@
+
+{% load crispy_forms_tags %}
+
+<div class="card shadow mb-4">
+    <div class="card-header py-3">
+        <h6 class="m-0 font-weight-bold text-primary">New Video</h6>
+    </div>
+     <div class="card-body" id='play'>  <!-- paly is used for ajax to say sucess -->
+        <div>
+            <p>In order to fit with our guidelines:</p>
+            <ol>
+                <li><p>Video should be between 1.5-10 minutes</p></li>
+                <li><p>Do not add videos with sexuality content</p></li>
+            </ol>
+        </div>
+        <div class="row">
+            <div class="col-sm-10 col-md-8 col-lg-7 mx-auto">
+            	<form id='video-form' method='POST' novalidate>
+            		{% csrf_token %}
+            		{{ form|crispy }}
+            		<button type='submit' class="btn btn-primary mt-3">Done</button>
+            	</form>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    
+        $('#video-form').submit(function(e){
+            
+            $.ajax({
+                data: $(this).serialize(), // get the form data
+                type: $(this).attr('method'), // GET or POST
+                url: "{% url 'community:add-video' %}",
+                
+                success:function(response){
+                    alert('ok')
+                },
+                error: function(response){
+                    alert(no)
+                }
+
+            });
+        return false;
+        });
+
+
+  
+</script>
