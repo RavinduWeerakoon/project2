@@ -1,0 +1,3 @@
+#ignore local settings
+project2/settings/local.py
+db.sqlite3

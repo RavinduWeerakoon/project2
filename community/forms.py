@@ -2,7 +2,7 @@ from django import forms
 from django.contrib.auth.forms import UserCreationForm
 from django.contrib.auth import get_user_model
 from .models import Video 
-
+import re
 User = get_user_model()
 
 
@@ -27,9 +27,15 @@ class TubeUrlForm(forms.Form):
 
 
 class VideoForm(forms.Form):
-	embed_script = forms.CharField(widget=forms.Textarea(attrs={'rows': '5',
-																'placeholder':'copy paste the embed script on yt'}))
-	url = forms.URLField(widget=forms.URLInput(attrs={'placeholder':'enter the video url'}))
+    url = forms.URLField(widget=forms.URLInput(attrs={'placeholder':'url'}), help_text="enter the url taken from Youtube share option")
+
+    def clean_url(self):
+        url = self.cleaned_data.get('url')
+        if 'youtube.com' in url:
+            url.replace('youtube.com', 'youtu.be')
+        return url
+
+
 
 class ContactForm(forms.Form):
 	email = forms.EmailField()

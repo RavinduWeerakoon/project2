@@ -1,7 +1,8 @@
 from django.db import models
 
-from django.db.models.signals import post_save
+from django.db.models.signals import post_save,pre_save
 from django.dispatch import receiver
+import re
 # Create your models here.
 
 
@@ -26,12 +27,22 @@ class TubeUser(models.Model):
 
 class Video(models.Model):
 	user = models.ForeignKey(TubeUser, on_delete=models.CASCADE)
-	embed_script = models.TextField()
+	embed_script = models.TextField(null=True, blank=True)
 	url = models.URLField()
 	time = models.IntegerField(blank=True, null=True)
 
 	def __str__(self):
 		return self.url
+
+@receiver(pre_save, sender=Video)
+def my_callback(sender, instance, *args, **kwargs):
+    url = instance.url
+    embed = url.replace('https://youtu.be', 'https://www.youtube.com/embed')
+    print(embed)
+    instance.embed_script = embed
+
+
+
 
 class Contact(models.Model):
 	email = models.EmailField()

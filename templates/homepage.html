@@ -46,10 +46,10 @@
     </div>
   </nav>
 
-    <section class="p-lg-0  text-sm-start  ">
+    <section class="p-lg-0  text-sm-start">
         <div class="container">
-              <div class="d-sm-flex align-items-center justify-content-center p-4">
-                  <div>
+              <div class="row p-4">
+                  <div class="col-md-6">
                       <h1>Give more and Get more...</h1>
                       <p class="lead my-4">
                         subzcommunity is the place where content creators gain acknowledgement for their hard work
@@ -58,17 +58,18 @@
                         Don't worry it's free forever
                       </p>
                       
-                      <button class="btn btn-dark" >Get Started</button>
+                      <a href="{% url 'signup' %}" class="btn btn-dark mb-4 mb-md-0">Get Started</a>
                   </div>
-                  
-                    <img class="img-fluid w-50 p-lg-4" src="{% static 'hero_img.svg' %}" alt="hero image">
+                  <div class="col-md-6">
+                    <img class="img-fluid p-lg-4" src="{% static 'hero_img.svg' %}" alt="hero image">
+                  </div>
                   
  
               </div>
         </div>
     </section>
 
-<section class="how-to my-4 p-5">
+<section class="how-to my-4 p-1 p-lg-5">
   <div class="container">
     
     <div class="row justify-content-center text-center g-4">
@@ -158,12 +159,11 @@
                             <p class="small text-muted mb-0">&copy; SubzCommunity. All rights reserved. <a class="text-primary" href="{% url 'index' %}">subzcommunity.com</a></p>
                         </div>
                         <div class="col-lg-2 col-md-6">
-                            <h5 class="mb-3">Quick links</h5>
+                            <h5 class="mb-3">Legal stuff</h5>
                             <ul class="list-unstyled text-muted">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Get started</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="{% url 'privacy-view' %}" target="_blank">privacy policy</a></li>
+                                <li><a href="{% url 'terms-view' %}" target='_blank'>terms</a></li>
+
                             </ul>
                         </div>
                         <div class="col-lg-2 col-md-6">

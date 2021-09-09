@@ -24,12 +24,15 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('', include('community.urls')),
     path('', home_view, name='index'),
+    
     path('contact/', contact_view, name='contact' ),
     path('about/', TemplateView.as_view(template_name='about.html'), name='about-view'),
+    path('terms/', TemplateView.as_view(template_name='terms.html'), name='terms-view'),
+    path('privacy-policy/', TemplateView.as_view(template_name='privacy_policy.html'), name='privacy-view'),
     
     path('accounts/', include('django.contrib.auth.urls')),
-    path('accounts/signup/', signup),
-    path('accounts/signup2/', add_tube_url, name="tube-url"),
+    path('accounts/signup/', signup, name='signup'),
+    path('accounts/signup2/', add_tube_url, name="add-tube-url"),
 ]
 
 if settings.DEBUG:

@@ -36,8 +36,8 @@ def get_video(user):
 		
 		# subscribed = subscribed.union(tube_user)
 		
-		video = Video.objects.exclude(user__in=subscribed).exclude(user=tube_user)
-		print(video)
+		video = Video.objects.exclude(user__in=subscribed).exclude(user=tube_user).first()
+
 		if video:
 			video.user.viewed_users.add(tube_user)
 		else:
@@ -107,14 +107,11 @@ def signup(request):
         form = SignUpForm(request.POST)
         if form.is_valid():
             user = form.save()
-            user.refresh_from_db()
-            user.tubeuser.tube_url = form.cleaned_data.get('tube_url')
-            user.save()
             raw_password = form.cleaned_data.get('password1')
-            form.cleaned_data.get('tube_url')
+            
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('community:dashboard')
+            return redirect('add-tube-url')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
@@ -122,9 +119,10 @@ def signup(request):
 def add_tube_url(request):
 	if request.method == "POST":
 		form = TubeUrlForm(request.POST)
-		tube_url = form.cleaned_data.get('tube_url')
-		t_user = tube_user.objects.create(user=request.user, tube_url=tube_url)
-		return redirect('community:dashboard')
+		if form.is_valid():
+			tube_url = form.cleaned_data.get('tube_url')
+			t_user = TubeUser.objects.create(user=request.user, tube_url=tube_url)
+			return redirect('index')
 	else:
 		form = TubeUrlForm()
 	return render(request, 'registration/tube_url_add.html', {'form':form})
