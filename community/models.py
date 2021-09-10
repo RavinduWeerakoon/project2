@@ -38,7 +38,7 @@ class Video(models.Model):
 def my_callback(sender, instance, *args, **kwargs):
     url = instance.url
     embed = url.replace('https://youtu.be', 'https://www.youtube.com/embed')
-    print(embed)
+    
     instance.embed_script = embed
 
 

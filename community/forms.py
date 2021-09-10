@@ -32,8 +32,9 @@ class VideoForm(forms.Form):
 
     def clean_url(self):
         url = self.cleaned_data.get('url')
-        if 'youtube.com' in url:
-            url.replace('youtube.com', 'youtu.be')
+        if 'www.youtube.com' in url:
+
+            url =url.replace('www.youtube.com', 'youtu.be')
         return url
 
 

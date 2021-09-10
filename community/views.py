@@ -29,6 +29,7 @@ def get_video(user):
 
 		if video:
 			tube_user.subscribed_users.add(viewed[0])
+			return video
 		
 		#video[0] = new user which the viewer should subscribe
 	else:
@@ -40,12 +41,15 @@ def get_video(user):
 
 		if video:
 			video.user.viewed_users.add(tube_user)
+			return video
 		else:
+			return None
+	# 	else:
 			
-			videos = Video.objects.all()
-			video = random.choice(videos)
+	# 		videos = Video.objects.all()
+	# 		video = random.choice(videos)
 			
-	return video
+	# return video
 
 
 # def get_video_for_ajax(request):
@@ -64,7 +68,11 @@ def home_view(request):
 
 		else:
 			video = get_video(request.user)
-			request.session['unwatched'] = video.id
+			if video:
+				request.session['unwatched'] = video.id
+			else:
+				if request.session.get('unwatched'):
+					del request.session['unwatched']
 		
 		context = {
 			'video':video,
@@ -75,7 +83,10 @@ def home_view(request):
 
 def dashboard_view(request):
 	video_id = request.session.get('unwatched')
-	video = Video.objects.get(id=video_id)
+	if video_id:
+		video = Video.objects.get(id=video_id)
+	else:
+		video = get_video(request.user)
 	return render(request, 'video_view.html', {'video':video})
 
 
@@ -85,7 +96,10 @@ def handle_video_ajax(request):
 
 	if request.is_ajax():
 		video = get_video(request.user)
-		request.session['unwatched'] = video.id
+		if video:
+			request.session['unwatched'] = video.id
+		else:
+			del request.session['unwatched']
 	return render(request, 'video_view.html', {'video':video})
 
 
