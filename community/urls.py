@@ -7,7 +7,8 @@ from .views import (test_view,
 					add_video, 
 					profile_view, 
 					dashboard_view,
-					notification_view)
+					notification_view,
+					getting_started)
 
 urlpatterns = [
 	
@@ -17,4 +18,5 @@ urlpatterns = [
 	path('video-add/', add_video, name="add-video"),
 	path('profile/', profile_view, name='profile-view'),
 	path('notifications/', notification_view, name='notifications'),
-	path('dashboard-view', dashboard_view, name='dashboard')]
+	path('dashboard-view/', dashboard_view, name='dashboard'),
+	path('getting-started/', getting_started, name='getting-started')]

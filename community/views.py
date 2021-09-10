@@ -41,7 +41,7 @@ def get_video(user):
 		if video:
 			video.user.viewed_users.add(tube_user)
 		else:
-			print('ranodm video')
+			
 			videos = Video.objects.all()
 			video = random.choice(videos)
 			
@@ -93,7 +93,7 @@ def notification_view(request):
 
 	subcribed_users = TubeUser.objects.get(request.user).subscribed_users.all()
 	users = User.objects.filter(tubeuser__in=subscribed_users)
-	print(users)
+	
 	context = {
 		'users':user
 	}
@@ -122,7 +122,7 @@ def add_tube_url(request):
 		if form.is_valid():
 			tube_url = form.cleaned_data.get('tube_url')
 			t_user = TubeUser.objects.create(user=request.user, tube_url=tube_url)
-			return redirect('index')
+			return redirect('community:getting-started')
 	else:
 		form = TubeUrlForm()
 	return render(request, 'registration/tube_url_add.html', {'form':form})
@@ -131,14 +131,14 @@ def add_tube_url(request):
 def add_video(request):
 	form = VideoForm()
 	if request.method == 'POST' and request.is_ajax():
-		print('ok')
+
 
 		form = VideoForm(request.POST)
 		if form.is_valid():
-			embed_script = form.cleaned_data.get('embed_script')
+			
 			url = form.cleaned_data.get('url')
 			t = TubeUser.objects.get(user=request.user)
-			vid = Video.objects.create(user=t, embed_script=embed_script, url=url)
+			vid = Video.objects.create(user=t,url=url)
 			return JsonResponse({'url':url}, status=200)
 		else:
 			errors = form.errors.as_json()
@@ -178,4 +178,23 @@ def contact_view(request):
 	return render(request, 'contact.html', {'form':form})
 
 
-#https://cdn.jsdelivr.net/npm/jquery-waypoints@2.0.5/waypoints.min.js
+def getting_started(request):
+	
+	form = VideoForm()
+	context = {'form':form}
+		
+
+	if request.method == 'POST':
+		form = VideoForm(request.POST)
+		if form.is_valid():
+
+			url = form.cleaned_data.get('url')
+			t = TubeUser.objects.get(user=request.user)
+			vid = Video.objects.create(user=t,url=url)
+			return redirect('index')
+	return render(request, 'add_video_started.html', context)
+
+
+
+
+

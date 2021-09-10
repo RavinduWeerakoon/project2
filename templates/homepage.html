@@ -1,43 +1,33 @@
-<!DOCTYPE html>
-<html lang="en">
+{% extends 'base_generic.html' %}
 {% load static %}
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SubzCommunity</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" type="text/css" href="{% static 'community.css' %}">
-</head>
-<body>
 
+
+{% block title %}SubzCommunity|It's more than sub for sub {% endblock %} 
+
+
+{% block content %}
   <nav class="navbar navbar-expand-lg navbar-light bg-light">
     
-    <div class="container">
-      <a class="navbar-brand" href="#"><span style="color:#ed302f">subz</span>community</a>
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#"><span style="color:#ed302f">Subz</span>Community</a>
       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
       <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <ul class="navbar-nav ms-auto mb-2 mb-lg-0">
+        <ul class="navbar-nav ms-auto mb-2 p-1 mb-lg-0">
+          
           <li class="nav-item">
-            <a class="nav-link active" aria-current="page" href="#">Home</a>
+            <a class="nav-link" href="{% url 'index' %}">Home</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'about-view' %}">About</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Link</a>
+            <a class="nav-link" href="{% url 'contact' %}">Contact</a>
           </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">About</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">FAQ</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Contact</a>
-          </li>
+
+
 
           
         </ul>
@@ -46,17 +36,15 @@
     </div>
   </nav>
 
-    <section class="p-lg-0  text-sm-start">
+    <section class="p-lg-0">
         <div class="container">
               <div class="row p-4">
-                  <div class="col-md-6">
+                  <div class="col-md-6 text-center text-md-start">
                       <h1>Give more and Get more...</h1>
                       <p class="lead my-4">
                         subzcommunity is the place where content creators gain acknowledgement for their hard work
                       </p>
-                      <p class="lead my-4">
-                        Don't worry it's free forever
-                      </p>
+
                       
                       <a href="{% url 'signup' %}" class="btn btn-dark mb-4 mb-md-0">Get Started</a>
                   </div>
@@ -93,7 +81,7 @@
     </div>
     <div class="col-md-6 col-lg-3">
       <div class="card h-100 shadow p-5">
-        <h3 class="card-title"><i class="fas fa-user-plus"></i>
+        <h3 class="card-title"><i class="fas fa-user-plus"></i></h3>
         <p class="lead">
          The more you subscribe the more you'll get
         </p>
@@ -122,9 +110,9 @@
         
                         
                         <blockquote class="blockquote blockquote-custom bg-white p-5 shadow rounded">
-                            <div class="blockquote-custom-icon bg-info shadow-sm"><i class="fas fa-quote-left text-white"></i></div>
-                            <p class="mb-0 mt-2 font-italic">One of the best free resource I have found to gather Subz for my channel.The process is very simple and now I have the power to get more subz as I want</p>
-                            <button class="btn btn-primary" >Get Started</button>
+                            <div class="blockquote-custom-icon bg-primary shadow-sm"><i class="fas fa-quote-left text-white"></i></div>
+                            <p class="mb-0 mt-2 font-italic">"One of the best free resource I have found to gather Subz for my channel.The process is very simple and now I have the power to get more subz as I want"</p>
+                            <a class="btn btn-primary mt-5 text-center" href="{% url 'signup' %}">Get Started</a>
 
                         </blockquote>
         
@@ -169,21 +157,16 @@
                         <div class="col-lg-2 col-md-6">
                             <h5 class="mb-3">Quick links</h5>
                             <ul class="list-unstyled text-muted">
-                                <li><a href="#">Home</a></li>
-                                <li><a href="#">About</a></li>
-                                <li><a href="#">Get started</a></li>
-                                <li><a href="#">FAQ</a></li>
+                                <li><a href="{% url 'index' %}">Home</a></li>
+                                <li><a href="{% url 'about-view' %}">About</a></li>
+                                <li><a href="{% url 'contact' %}">Contact Us</a></li>
                             </ul>
                         </div>
                         <div class="col-lg-4 col-md-6">
-                            <h5 class="text-white mb-3">Newsletter</h5>
-                            <p class="small text-muted">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt.</p>
-                            <form action="#">
-                                <div class="input-group mb-3">
-                                    <input class="form-control" type="text" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
-                                    <button class="btn btn-primary" id="button-addon2" type="button"><i class="fas fa-paper-plane"></i></button>
-                                </div>
-                            </form>
+                            <h5 class="mb-3">Help Us</h5>
+                            <p class="small text-muted">Help us to grow this website more by sharing the website url</p>
+                            
+
                         </div>
                     </div>
                 </div>
@@ -211,9 +194,9 @@
   left: 50px;
 }
 </style>
+
+{% endblock %}
     
-</body>
-</html>
 
 
 

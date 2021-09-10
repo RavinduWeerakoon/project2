@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load crispy_forms_tags %}
+{% block content %}
+<div class="container-fluid" style="min-height: 100vh;">
+  <div class="row">
+    <div class="col-md-8 mx-auto">
+      <div class="card shadow mb-4 mt-4">
+          <div class="card-header py-3">
+              <h6 class="m-0 font-weight-bold text-primary">New Video</h6>
+          </div>
+           <div class="card-body" id='play'>  <!-- play is used for ajax to say sucess -->
+              <div>
+                  <p>To get started please add a video from Your Youtube channel</p>
+                  <p>After that You will be redirected to our dashboard and you can now start watching videos and Gain more Subs</p>
+                  <p>In order to fit with our guidelines:</p>
+                  <ol>
+                      <li><p>Video should be between 1.5-10 minutes</p></li>
+                      <li><p>Do not add videos with sexuality content</p></li>
+                  </ol>
+              </div>
+              <div class="row">
+                  <div class="col-sm-10 col-md-8 col-lg-7 mx-auto mx-md-0">
+                    <form id='video-form' method='POST' novalidate>
+                      {% csrf_token %}
+                      {{form|crispy}}
+                      <button type='submit' class="btn btn-primary mt-3">Done</button>
+                    </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% include 'utils/small_footer.html' %}
+
+
+{% endblock %}

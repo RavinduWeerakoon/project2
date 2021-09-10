@@ -23,7 +23,8 @@ class SignUpForm(UserCreationForm):
 
 
 class TubeUrlForm(forms.Form):
-	tube_url = forms.URLField()
+	tube_url = forms.URLField(label="Youtube Channel Url")
+
 
 
 class VideoForm(forms.Form):

@@ -2,6 +2,7 @@
 {% extends 'base_generic.html' %}
 {% load crispy_forms_tags %}
 
+{% block title %}SubzCommunity|Getting Started {% endblock %}
 
 {% block content %}
 <div class="container h-100">
@@ -12,22 +13,25 @@
 						<div class="text-center mt-4">
 							<h1 class="h2">Get started</h1>
 							<p class="lead">
-								Start creating the best possible user experience for you customers.
+								Start growing your YouTube channel more than ever.
 							</p>
 						</div>
 
 						<div class="card">
 							<div class="card-body">
-								<form method="POST" novalidate="true">
+								<form method="POST" novalidate="true" class="d-block">
 									{% csrf_token %}
 									{{ form|crispy }}
 									<div class="form-check">
 										  <input class="form-check-input" type="checkbox" value="" id="flexCheckChecked" checked>
 										  <label class="form-check-label" for="flexCheckChecked">
-										    I agree to the <a href="">terms</a> and <a href="">privacy policy</a>
+										    I agree to the <a href="{% url 'terms-view' %}">terms</a> and <a href="{% url 'privacy-view' %}">privacy policy</a>
 										  </label>
 									</div>
-									<button type="submit" class="btn btn-primary btn-sm mt-3">submit</button>
+									<div class="text-center">
+										<p class="text-muted mt-3">Already have an account? <a href="{% url 'login' %}">login</a></p>
+										<button type="submit" class="btn btn-primary btn-sm mt-3">submit</button>
+									</div>
 								</form>
 								
 							</div>
