@@ -7,16 +7,17 @@
     <div class="card-body">
     {% if video %}
             <div class="videowrapper mb-4 mx-auto">
-                  <iframe src="{{ video.embed_script }}" frameborder="0" allowfullscreen></iframe>
+                  <iframe src="{{ video.embed_script }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
             </div>
         
         <div class="text-center">
     </div>
-        <h6>view full video and subscribe</h6>
+        <h6>view the video and subscribe</h6>
+        <h6>Please watch the video for 3-4 minutes and subscribe otherwise next button won't work</h6>
         <h6>If video does not show up follow the <a href="{{video.url}}" target="_blank" id="video-link">link</a> </h6>
 
 
-            <button type="button" class="btn btn-primary btn-sm mt-3" id="submit-popover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please do it as follows" delay="500">Done</button>
+            <button type="button" class="btn btn-primary mt-3" id="submit-popover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please watch the video for 3-4 minutes and subscribe the user. Then you can take next video" delay="500">Next</button>
     {% else %}
         <h3>No video yet Please try Later</h3>
         <p>Why this happens:</p>

@@ -5,6 +5,9 @@ from .models import Video
 import re
 User = get_user_model()
 
+from django.core.exceptions import ValidationError
+
+
 
 class SignUpForm(UserCreationForm):
 
@@ -35,6 +38,9 @@ class VideoForm(forms.Form):
         if 'www.youtube.com' in url:
 
             url =url.replace('www.youtube.com', 'youtu.be')
+        if 'youtu.be' not in url:
+            raise ValidationError('Your URL should be a youtube video')
+
         return url
 
 

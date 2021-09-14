@@ -11,17 +11,21 @@ from django.contrib.auth.models import AbstractUser,UserManager
 
 class CustomUser(AbstractUser):
 	objects = UserManager()
-    
+
+@receiver(post_save, sender=CustomUser)
+def user_callback(sender, instance,created, *args, **kwargs):
+	if created:
+		t_user = TubeUser.objects.create(user=instance)    
 
 
 class TubeUser(models.Model):
 	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
-	tube_url = models.URLField()
+	tube_url = models.URLField(blank=True, null=True)
 	viewed_users = models.ManyToManyField('self', blank=True)
 	subscribed_users = models.ManyToManyField('self', blank=True)
 
 	def __str__(self):
-		return self.tube_url
+		return self.user.username
 
     
 
@@ -40,6 +44,8 @@ def my_callback(sender, instance, *args, **kwargs):
     embed = url.replace('https://youtu.be', 'https://www.youtube.com/embed')
     
     instance.embed_script = embed
+
+
 
 
 

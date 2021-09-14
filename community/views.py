@@ -125,7 +125,7 @@ def signup(request):
             
             user = authenticate(username=user.username, password=raw_password)
             login(request, user)
-            return redirect('add-tube-url')
+            return redirect('community:getting-started')
     else:
         form = SignUpForm()
     return render(request, 'registration/signup.html', {'form': form})
