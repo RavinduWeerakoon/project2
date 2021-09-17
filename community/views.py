@@ -37,7 +37,7 @@ def get_video(user):
 		
 		# subscribed = subscribed.union(tube_user)
 		
-		video = Video.objects.exclude(user__in=subscribed).exclude(user=tube_user).first()
+		video = Video.objects.exclude(user__in=subscribed).exclude(user=tube_user).last()
 
 		if video:
 			video.user.viewed_users.add(tube_user)
