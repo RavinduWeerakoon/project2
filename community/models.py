@@ -21,8 +21,8 @@ def user_callback(sender, instance,created, *args, **kwargs):
 class TubeUser(models.Model):
 	user = models.OneToOneField(CustomUser, on_delete=models.CASCADE)
 	tube_url = models.URLField(blank=True, null=True)
-	viewed_users = models.ManyToManyField('self', blank=True)
-	subscribed_users = models.ManyToManyField('self', blank=True)
+	viewed_users = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='viewed_the_user')
+	subscribed_users = models.ManyToManyField('self', blank=True, symmetrical=False, related_name='subscribe_by_the_user')
 
 	def __str__(self):
 		return self.user.username

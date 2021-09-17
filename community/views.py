@@ -21,6 +21,7 @@ def get_video(user):
 	viewed = tube_user.viewed_users.all()
 	#as viewed is a queryset get the first user and videos
 	if viewed.count() > 0:
+
 		try:
 			video = random.choice(viewed[0].video_set.all())
 			tube_user.viewed_users.remove(viewed[0])
@@ -41,19 +42,11 @@ def get_video(user):
 
 		if video:
 			video.user.viewed_users.add(tube_user)
+			tube_user.subscribed_users.add(video.user)
 			return video
 		else:
 			return None
-	# 	else:
-			
-	# 		videos = Video.objects.all()
-	# 		video = random.choice(videos)
-			
-	# return video
 
-
-# def get_video_for_ajax(request):
-# 	tube_user.
 def test_view(request):
 	print(request.GET)
 	print(request.POST)
@@ -99,7 +92,8 @@ def handle_video_ajax(request):
 		if video:
 			request.session['unwatched'] = video.id
 		else:
-			del request.session['unwatched']
+			if request.session.get('unwatched'):
+				del request.session['unwatched']
 	return render(request, 'video_view.html', {'video':video})
 
 
