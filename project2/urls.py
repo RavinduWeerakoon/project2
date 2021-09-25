@@ -33,6 +33,10 @@ urlpatterns = [
     path('accounts/', include('django.contrib.auth.urls')),
     path('accounts/signup/', signup, name='signup'),
     path('accounts/signup2/', add_tube_url, name="add-tube-url"),
+
+
+    path('sitemap.xml', TemplateView.as_view(template_name='seo/sitemap.xml', content_type='application/xml'), name='sitemap'),
+    path('robots.txt', TemplateView.as_view(template_name='seo/robots.txt', content_type='text/plain'), name='robots')
 ]
 
 if settings.DEBUG:
