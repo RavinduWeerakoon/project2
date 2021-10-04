@@ -36,6 +36,11 @@
 
 
 </nav>
+<div class="alert alert-info alert-dismissible fade show mt-0 text-center" id="aff-alert" role="alert">
+Grab your affiliate link and get two free subscribers for every successfull login 
+<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+</div>
+
 
 <div class="container-fluid" style="min-height: 100vh;">
 <div class="row">
@@ -82,7 +87,10 @@
                 $loading.hide();
               });
 
-
+        setTimeout(function(){
+          var aff= $('#aff-alert');
+          aff.hide();
+        }, 10000)
 
 
   

@@ -8,7 +8,9 @@ from .views import (test_view,
 					profile_view, 
 					dashboard_view,
 					notification_view,
-					getting_started)
+					getting_started,
+					affiliate_view,
+					)
 
 urlpatterns = [
 	
@@ -19,4 +21,6 @@ urlpatterns = [
 	path('profile/', profile_view, name='profile-view'),
 	path('notifications/', notification_view, name='notifications'),
 	path('dashboard-view/', dashboard_view, name='dashboard'),
-	path('getting-started/', getting_started, name='getting-started')]
+	path('getting-started/', getting_started, name='getting-started'),
+
+	path('affiliate', affiliate_view, name="affiliate"),]

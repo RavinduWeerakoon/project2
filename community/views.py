@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponseRedirect, HttpResponse,JsonResponse
-
+from django.contrib import messages
 # Create your views here.
 
 
@@ -14,7 +14,8 @@ from django.contrib.auth import login, authenticate
 from .models import CustomUser as User
 from .forms import SignUpForm, TubeUrlForm, VideoForm, ContactForm
 
-
+#viewed are the users who watched your video
+#subscribed are the users who you subscribed
 
 def get_video(user):
 	tube_user = TubeUser.objects.prefetch_related('viewed_users__video_set').get(user=user)
@@ -66,6 +67,7 @@ def home_view(request):
 			else:
 				if request.session.get('unwatched'):
 					del request.session['unwatched']
+
 		
 		context = {
 			'video':video,
@@ -205,4 +207,29 @@ def getting_started(request):
 
 
 
+
+def affiliate_view(request):
+	user_id = request.GET.get("user_id")
+	user = User.objects.filter(id=user_id).select_related('tubeuser')
+	user = user[0]
+	print(user.username)
+	t_user = user.tubeuser
+	#grab the tube user
+	subbed_users = user.tubeuser.subscribed_users.all()
+	try:
+		other_users = TubeUser.objects.exclude(subscribed_users__in=subbed_users).order_by('-id')[:2]
+		for other in other_users:
+			other.viewed_users.add(t_user)
+
+	except:
+		pass
+
+
+
+	form = SignUpForm()
+	context = {
+	'form':form
+	}
+
+	return render(request, 'registration/signup.html', context)
 

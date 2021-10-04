@@ -19,7 +19,7 @@
 
 						<div class="card">
 							<div class="card-body">
-								<form method="POST" novalidate="true" class="d-block">
+								<form method="POST" novalidate="true" class="d-block" action="{% url 'signup' %}">
 									{% csrf_token %}
 									{{ form|crispy }}
 									<div class="form-check">

@@ -11,12 +11,42 @@
         
         <div class="text-center">
     </div>
-        <h6>view the video and subscribe</h6>
-        <h6>Please watch the video for 3-4 minutes and subscribe otherwise next button won't work</h6>
+    
+        <h6>View the video and subscribe.</h6>
+        <h6>Please watch the video for 2-3 minutes and subscribe otherwise next button won't work</h6>
         <h6>If video does not show up follow the <a href="{{video.url}}" target="_blank" id="video-link">link</a> </h6>
+        <h6>Press the next button after completing the task</h6>
 
 
-            <button type="button" class="btn btn-primary mt-3" id="submit-popover" data-bs-container="body" data-bs-toggle="popover" data-bs-placement="top" data-bs-content="Please watch the video for 3-4 minutes and subscribe the user. Then you can take next video" delay="500">Next</button>
+
+
+<div class="d-flex justify-content-between mx-auto my-3 mt-5 action-buttons">
+<button type="button" class="btn btn-primary" id="modal-button" data-bs-toggle="modal" data-bs-target="#exampleModal">Next</button>
+<button class="btn btn-outline-primary" id="affiliate-btn" onclick="copyFunction">Get My affiliate link</button>
+</div>
+
+<small class="mt-4">*Be a subzcommuity affiliate and get free 2 subscribes for every sucessful signup</small>
+
+<!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+              <div class="modal-header">
+                <h5 class="modal-title" id="exampleModalLabel">Oops!!!</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+
+              </div>
+              <div class="modal-body">
+                <p>Please watch the video at least 2 minutes and subscribe the user. Then you can take the next video.</p>
+                <p>If the video time is less than 2 minutes watch again.</p>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+               
+              </div>
+            </div>
+          </div>
+        </div>
 
     {% else %}
         <h3>No video yet Please try Later</h3>
@@ -43,62 +73,65 @@
     width: 100%;
     height: 100%;
 }
+.action-buttons{
+    width:75%;
+}
 @media screen and (min-width:768px){
     .videowrapper{
         width:360px;
         padding-bottom:202px;
     }
 }
+
+@media screen and (max-width:768px){
+    .action-buttons{
+        width:100%;
+    }
+}
 </style>
-<div class="ad mt-4 mx-auto"><script data-cfasync='false' type='text/javascript' src='//p436474.clksite.com/adServe/banners?tid=436474_859265_2'></script></div>   
+
+
 
 
 
 <script>
-var popoverTriggerList = [].slice.call(document.querySelectorAll('[data-bs-toggle="popover"]'))
-var popoverList = popoverTriggerList.map(function (popoverTriggerEl) {
-  return new bootstrap.Popover(popoverTriggerEl)
-})
+
+function copyFunction() {
+              /* Get the text field */
+              var copyText = "https://subzcommunity.herokuapp.com/affiliate?user_id={{request.user.id}}"
+
+             
+
+               /* Copy the text inside the text field */
+              navigator.clipboard.writeText(copyText);
+
+            }
+$("#affiliate-btn").on('click', copyFunction)
+
+
 
 $(document).ready(function(){
-            var timeLeft = 1000*60*2;
+
+           
+            var timeLeft = 1000*2*60;
             var submitTimer = setTimeout(function(){
-                $("#submit-popover").popover('dispose');
-                $("#submit-popover").click(function(){
+                var modalBtn = document.getElementById('modal-button');
+                modalBtn.removeAttribute("data-bs-toggle");
+                modalBtn.removeAttribute("data-bs-target");
+                $("#modal-button").on('click', function(e){
+                    
                     $("#content").load("{% url 'community:handle-video-ajax' %}");
+
                 });
             }, timeLeft);
 
   
 
         });
-        $(document).ready( function () {
-           
-           $("#submit-popover").on('shown.bs.popover', function(){
-
-                setTimeout(function(){
-                    $('#submit-popover').popover('hide')
-                }, 5000)
-           })
-        });
-               
 
 
 
 
-
-        // $('[data-toggle="popover"][data-timeout]').on('shown.bs.popover', function() {
-        //         this_popover = $(this);
-        //         setTimeout(function () {
-        //         this_popover.popover('hide');
-        //     }, $(this).data("timeout"));
-        // });
-
-        // $('[data-toggle="popover"]').click(function () {
-
-        // setTimeout(function () {
-        //     $('.popover').fadeOut('slow');
-        // }, 5000);
 
     
 

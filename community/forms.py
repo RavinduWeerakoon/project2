@@ -49,3 +49,15 @@ class ContactForm(forms.Form):
 	email = forms.EmailField()
 	message = forms.CharField(widget=forms.Textarea(attrs={'rows':'5'}))
 	
+
+# class AffiliateForm(SignUpForm,UserCreationForm):
+#     aff_user_id = forms.CharField(max_length=10, widget=forms.HiddenInput())
+#     class Meta:
+#         model = User
+#         fields = ('username', 'email', 'password1', 'password2')
+#         help_texts = {
+#             'username': None,
+#             'email': None,
+#             'password':None,
+#             'password_confirmation':None,
+#         }
